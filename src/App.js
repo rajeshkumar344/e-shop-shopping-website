@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import Shop from './pages/Shop';
+import Footer from './components/Footer';
+import Viewcart from './pages/Viewcart';
+import Checkout from './components/Checkout';
+import React from 'react';
+import OrderConfirm from './components/OrderConfirm';
 
 function App() {
+  const [orderInfo, setOrderInfo] =React.useState("")
+  const [searchTerm, setSearchTerm] =React.useState("")
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Navbar setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
+        <Routes>
+          <Route path='/' element={<Home/>}></Route>
+          <Route path='/shop' element={<Shop searchTerm={searchTerm}/>}></Route>
+          <Route path='/viewcart' element={<Viewcart/>}></Route>
+          <Route path='/checkout' element={<Checkout setOrderInfo={setOrderInfo}/>}></Route>
+          <Route path='/orderconfirm' element={<OrderConfirm orderInfo={orderInfo}/>}></Route>
+        </Routes>
+        <Footer/>
     </div>
   );
 }
